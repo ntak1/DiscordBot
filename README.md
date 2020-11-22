@@ -13,4 +13,4 @@ $$ gift <char name>
 ## References
 
 - [Working with TypeScript, Dependency Injection, and Discord Bots
-  ](https://www.toptal.com/typescript/dependency-injection-discord-bot-tutorial]
+  ](https://www.toptal.com/typescript/dependency-injection-discord-bot-tutorial)

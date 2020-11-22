@@ -1,0 +1,29 @@
+{
+  "name": "Shane",
+  "birthDay": "Spring 20",
+  "loves": [
+    "Beer", "Hot Pepper", "Pizza", "Pepper Poppers" 
+  ],
+  "likes": [
+    "All eggs", "Fruit"
+  ],
+  "neutral": [
+    "All milt"
+  ],
+  "dislikes": [
+    "All mushrooms",
+    "Daffodil",
+    "Dandelion",
+    "Hazelnut",
+    "Holly",
+    "Leek",
+    "Seaweed",
+    "Snow Yam",
+    "Wild Horseradish",
+    "Winter Root"
+  ],
+  "hates": [
+    "Pickles",
+    "Quartz"
+  ]
+}
