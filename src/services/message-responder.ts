@@ -3,6 +3,7 @@ import { PingFinder } from "./ping-finder";
 import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { GiftParser, parser } from "../parser";
+import { Villager, Villagers } from "../villagers";
 
 @injectable()
 export class MessageResponder {
@@ -24,7 +25,7 @@ export class MessageResponder {
       if (reply != null) {
         message.reply(JSON.stringify(reply));
       } else {
-        message.reply("Error trying to perser: " + messageContent.toString());
+        message.reply("Error trying to parse: " + messageContent.toString());
       }
     }
     if (this.pingFinder.isPing(message.content)) {

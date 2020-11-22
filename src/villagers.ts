@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 
-interface Villager {
+export interface Villager {
   name: string;
   birthday: string;
   loves: string[];
@@ -9,11 +9,6 @@ interface Villager {
   dislikes: string[];
   hates: string[];
 }
-interface villagersList {
-  villagers: string[];
-}
-
-const BASE_DIR = "../data";
 
 const shane: Villager = {
   name: "Shane",
@@ -36,19 +31,54 @@ const shane: Villager = {
   hates: ["Pickles", "Quartz"],
 };
 
+const willy: Villager = {
+  name: "Willy",
+  birthday: "Summer 24",
+  loves: [
+    "Catfish",
+    "Diamond",
+    "Bar.png Iridium Bar",
+    "Mead",
+    "Octopus",
+    "Pumpkin",
+    "Sea Cucumber",
+    "Sturgeon",
+  ],
+  likes: ["Gold Bar", "Lingcod", "Quartz", "Pudding", "Trout "],
+  neutral: [
+    "All Eggs (except Void Egg)",
+    "All Fish (except Carp, Catfish, Lingcod, Octopus, Sea Cucumber, Snail, Sturgeon & Tiger Trout)",
+    "All Fruit (except Fruit Tree Fruit & Salmonberry)",
+    "All Milk",
+    "Dish o' The Sea.png Dish o' The Sea",
+    "Roll.png Maki Roll",
+    "Sashimi",
+  ],
+  dislikes: [
+    "All Cooking except for Bread, Fried Egg, Strange Bun; the fish dishes he is neutral towards: Dish o' The Sea, Maki Roll, & Sashimi; and the fish dishes he likes: Baked Fish, Carp Surprise, Chowder, Crab Cakes, Crispy Bass, Fish Stew, Fish Taco, Fried Calamari, Fried Eel, Lobster Bisque, Salmon Dinner, Seafoam Pudding, & Trout Soup",
+    "All Mushrooms (except Red)",
+    "Daffodil",
+    "Dandelion",
+    "Hazelnut",
+    "Holly",
+    "Leek",
+    "Life Elixir",
+    "Salmonberry",
+    "Snow Yam",
+    "Wild Horseradish",
+    "Winter Root",
+  ],
+  hates: [],
+};
+
 @injectable()
 export class Villagers {
-  private villagersFile: string = `${BASE_DIR}/villagers.json`;
   public villagers: Villager[] = [];
+  public numberVilagers: number = 0;
 
   constructor() {
-    // let json = require(this.villagersFile);
-    // const villagersList: villagersList = JSON.parse(json);
-    // for (let villager in villagersList.villagers) {
-    //   let villagerFile = `${BASE_DIR}/${villager}.json`;
-    //   json = require(villagerFile);
-    //   this.villagers.concat(JSON.parse(json));
-    // }
-    this.villagers = this.villagers.concat(shane);
+    this.villagers.push(shane);
+    this.villagers.push(willy);
+    this.numberVilagers = this.villagers.length;
   }
 }
