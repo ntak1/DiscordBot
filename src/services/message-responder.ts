@@ -3,7 +3,6 @@ import { PingFinder } from "./ping-finder";
 import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { GiftParser, parser } from "../parser";
-import { Villager, Villagers } from "../villagers";
 
 @injectable()
 export class MessageResponder {
