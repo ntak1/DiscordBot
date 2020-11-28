@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { FileOptions, Message, MessageAttachment, MessageEmbed } from "discord.js";
 import { PingFinder } from "./ping-finder";
 import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
@@ -19,6 +19,16 @@ export class MessageResponder {
 
   handle(message: Message): Promise<Message | Message[]> {
     const messageContent = parser(message.content);
+    message.channel.send({
+      files: [
+        {
+          attachment: 'data/Beer.png',
+          name: "Beer.png"
+        }
+      ]
+    })
+      .then(() => console.log("Sucess sending image"))
+      .catch((e) => console.log("Error sending image", e));
     if (messageContent.length && messageContent[0] == "$$") {
       const reply = this.giftParser.parse(messageContent);
       if (reply != null) {

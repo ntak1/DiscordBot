@@ -25,7 +25,7 @@ export class Bot {
         console.log("Ignoring bot message!");
         return;
       }
-
+      
       console.log("Message received! Contents: ", message.content);
 
       this.messageResponder
