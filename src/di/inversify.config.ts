@@ -1,10 +1,10 @@
 import "reflect-metadata";
 import { Container } from "inversify";
 import { TYPES } from "./types";
-import { Bot } from "./bot";
+import { Bot } from "../bot";
 import { Client } from "discord.js";
-import { Villagers } from "./villagers";
-import { GiftResponder } from "./services/gift-responder";
+import { Villagers } from "../villagers";
+import { GiftResponder } from "../services/gift-responder";
 
 let container = new Container();
 
