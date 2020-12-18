@@ -3,10 +3,8 @@ import { Container } from "inversify";
 import { TYPES } from "./types";
 import { Bot } from "./bot";
 import { Client } from "discord.js";
-import { MessageResponder } from "./services/message-responder";
-import { PingFinder } from "./services/ping-finder";
 import { Villagers } from "./villagers";
-import { GiftParser } from "./parser";
+import { GiftResponder } from "./services/gift-responder";
 
 let container = new Container();
 
@@ -18,14 +16,9 @@ if (process.env.TOKEN !== undefined) {
 } else {
   container.bind<string>(TYPES.Token).toConstantValue(fakeToken);
 }
-container
-  .bind<MessageResponder>(TYPES.MessageResponder)
-  .to(MessageResponder)
-  .inSingletonScope();
-container.bind<PingFinder>(TYPES.PingFinder).to(PingFinder).inSingletonScope();
 
 // Business logic
 container.bind<Villagers>(TYPES.Villagers).to(Villagers).inSingletonScope();
-container.bind<GiftParser>(TYPES.GiftParser).to(GiftParser).inSingletonScope();
+container.bind<GiftResponder>(TYPES.GiftResponder).to(GiftResponder).inSingletonScope();
 
 export default container;

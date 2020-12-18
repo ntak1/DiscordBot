@@ -3,7 +3,6 @@ export const TYPES = {
   Client: Symbol("Client"),
   Token: Symbol("Token"),
   PingFinder: Symbol("PingFinder"),
-  MessageResponder: Symbol("MessageResponder"),
+  GiftResponder: Symbol("GiftResponder"),
   Villagers: Symbol("Villagers"),
-  GiftParser: Symbol("GiftParser"),
 };
