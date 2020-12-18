@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import { inject, injectable } from "inversify";
 import { getIconName as getIconFilename, getIconPath } from "../getIconPath";
 import { TYPES } from "../types";
+import { fileExistsSync } from "../utils";
 import { Villager, Villagers } from "../villagers";
 
 type VillagerKeys = keyof Villager;
@@ -40,19 +41,21 @@ const replyWithIcons = (
   for (let iconName of iconNames) {
     const filename = getIconFilename(iconName);
     const filepath = getIconPath(iconName);
-    console.debug(filepath);
-    console.debug(filename);
 
-    reply.push(
-      message.reply(iconName, {
-        files: [
-          {
-            attachment: filepath,
-            name: filename,
-          },
-        ],
-      })
-    );
+    if (fileExistsSync(filepath)) {
+      reply.push(
+        message.reply(iconName, {
+          files: [
+            {
+              attachment: filepath,
+              name: filename,
+            },
+          ],
+        })
+      );
+    } else {
+      reply.push(message.reply(iconName));
+    }
   }
   return reply;
 };
