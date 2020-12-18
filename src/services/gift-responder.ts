@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { inject, injectable } from "inversify";
-import { getIconName as getIconFilename, getIconPath } from "../getIconPath";
+import { getIconName as getIconFilename, getIconPath } from "../get-icon-path";
 import { TYPES } from "../types";
 import { fileExistsSync } from "../utils";
 import { Villager, Villagers } from "../villagers";
