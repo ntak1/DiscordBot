@@ -230,8 +230,8 @@ const abigail: Villager = {
     "All Eggs",
     "All Fruit (except Fruit Tree Fruit)",
     "All Vegetables (except Hops, Pumpkin, Tea Leaves, & Wheat)",
-    "Sugar.png Sugar",
-    "Wild Horseradish.png Wild Horseradish",
+    "Sugar",
+    "Wild Horseradish",
   ],
   hates: ["Clay", "Holly"],
 };
@@ -328,7 +328,7 @@ const leah: Villager = {
   dislikes: [
     "All Foraged Minerals (except Earth Crystal)",
     "All Gems (except Diamond & Prismatic Shard)",
-    "Carp Surprise.png Carp Surprise",
+    "Carp Surprise",
     "Cookie",
     "Fried Egg",
     "Ice Cream",
@@ -405,7 +405,7 @@ const penny: Villager = {
     "Winter Root",
   ],
   dislikes: [
-    "Algae Soup.png Algae Soup",
+    "Algae Soup",
     "Duck Feather",
     "Pale Broth",
     "Purple Mushroom",
@@ -501,7 +501,7 @@ const demetrius: Villager = {
   likes: [
     "All Eggs (except Void Egg)",
     "All Fruit (except Strawberry)",
-    "Purple Mushroom.png Purple Mushroom",
+    "Purple Mushroom",
   ],
   neutral: [
     "All Fish (except Carp & Snail)",
@@ -664,7 +664,7 @@ const jas: Villager = {
   hates: [
     "All Artisan Goods (except Honey, Jelly, & Oil)",
     "Clay",
-    "Espresso.png Triple Shot Espresso",
+    "Triple Shot Espresso",
     "Wild Horseradish",
   ],
 };
@@ -756,7 +756,7 @@ const lewis: Villager = {
   name: "Lewis",
   birthday: "Spring 07",
   loves: [
-    "Autumn's Bounty.png Autumn's Bounty",
+    "Autumn's Bounty",
     "Glazed Yams",
     "Green Tea",
     "Hot Pepper",
@@ -785,7 +785,7 @@ const linus: Villager = {
     "Blueberry Tart",
     "Cactus Fruit",
     "Coconut",
-    "Dish o' The Sea.png Dish o' The Sea",
+    "Dish o' The Sea",
     "Yam",
   ],
   likes: [
@@ -816,11 +816,11 @@ const marnie: Villager = {
   birthday: "Fall 18",
   loves: [
     "Diamond",
-    "Farmer's Lunch.png Farmer's Lunch",
+    "Farmer's Lunch",
     "Pink Cake",
     "Pumpkin Pie",
   ],
-  likes: ["All Eggs (except Void Egg)", "All Milk", "Quartz.png Quartz"],
+  likes: ["All Eggs (except Void Egg)", "All Milk", "Quartz"],
   neutral: [
     "All Fruit (except Fruit Tree Fruit & Salmonberry)",
     "All Mushrooms (except Red)",
@@ -850,7 +850,7 @@ const pam: Villager = {
   likes: [
     "All Fruit (except Cactus Fruit)",
     "All Milk",
-    "Daffodil.png Daffodil",
+    "Daffodil",
   ],
   neutral: [
     "All Fish (except Carp, Octopus, Snail & Squid)",
@@ -889,7 +889,7 @@ const pierre: Villager = {
 const robin: Villager = {
   name: "Robin",
   birthday: "Fall 21",
-  loves: ["Goat Cheese.png Goat Cheese", "Peach", "Spaghetti"],
+  loves: ["Goat Cheese", "Peach", "Spaghetti"],
   likes: ["All Milk", "All Fruit (except Peach)", "Hardwood", "Quartz"],
   neutral: [
     "All Eggs (except Void Egg)",
@@ -972,7 +972,7 @@ const willy: Villager = {
     "All Fish (except Carp, Catfish, Lingcod, Octopus, Sea Cucumber, Snail, Sturgeon & Tiger Trout)",
     "All Fruit (except Fruit Tree Fruit & Salmonberry)",
     "All Milk",
-    "Dish o' The Sea.png Dish o' The Sea",
+    "Dish o' The Sea",
     "Maki Roll",
     "Sashimi",
   ],
@@ -997,8 +997,8 @@ const wizard: Villager = {
   name: "Wizard",
   birthday: "Winter 17",
   loves: [
-    "Mushroom.png Purple Mushroom",
-    "Essence.png Solar Essence",
+    "Purple Mushroom",
+    "Solar Essence",
     "Super Cucumber",
     "Void Essence",
   ],
@@ -1025,7 +1025,7 @@ const wizard: Villager = {
 @injectable()
 export class Villagers {
   public villagers: Villager[] = [];
-  public numberVilagers: number = 0;
+  public numberVillagers: number = 0;
 
   constructor() {
     this.villagers.push(alex);
@@ -1061,6 +1061,6 @@ export class Villagers {
     this.villagers.push(vincenct);
     this.villagers.push(wizard);
     this.villagers.push(willy);
-    this.numberVilagers = this.villagers.length;
+    this.numberVillagers = this.villagers.length;
   }
 }
