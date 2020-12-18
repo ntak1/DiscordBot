@@ -22,11 +22,11 @@ export class Bot {
   public listen(): Promise<string> {
     this.client.on("message", (message: Message) => {
       if (message.author.bot) {
-        console.log("Ignoring bot message!");
+        console.info("Ignoring bot message!");
         return;
       }
 
-      console.log("Message received! Contents: ", message.content);
+      console.info("Message received! Contents: ", message.content);
 
       this.messageResponder.handle(message).forEach((promise) => {
         promise

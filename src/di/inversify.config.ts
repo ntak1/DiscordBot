@@ -18,7 +18,9 @@ if (process.env.TOKEN !== undefined) {
 }
 
 // Business logic
+container
+  .bind<GiftResponder>(TYPES.GiftResponder)
+  .to(GiftResponder)
+  .inSingletonScope();
 container.bind<Villagers>(TYPES.Villagers).to(Villagers).inSingletonScope();
-container.bind<GiftResponder>(TYPES.GiftResponder).to(GiftResponder).inSingletonScope();
-
 export default container;

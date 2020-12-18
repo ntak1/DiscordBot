@@ -814,12 +814,7 @@ const linus: Villager = {
 const marnie: Villager = {
   name: "Marnie",
   birthday: "Fall 18",
-  loves: [
-    "Diamond",
-    "Farmer's Lunch",
-    "Pink Cake",
-    "Pumpkin Pie",
-  ],
+  loves: ["Diamond", "Farmer's Lunch", "Pink Cake", "Pumpkin Pie"],
   likes: ["All Eggs (except Void Egg)", "All Milk", "Quartz"],
   neutral: [
     "All Fruit (except Fruit Tree Fruit & Salmonberry)",
@@ -847,11 +842,7 @@ const pam: Villager = {
     "Parsnip",
     "Parsnip Soup",
   ],
-  likes: [
-    "All Fruit (except Cactus Fruit)",
-    "All Milk",
-    "Daffodil",
-  ],
+  likes: ["All Fruit (except Cactus Fruit)", "All Milk", "Daffodil"],
   neutral: [
     "All Fish (except Carp, Octopus, Snail & Squid)",
     "All Mushrooms (except Red)",
@@ -996,12 +987,7 @@ const willy: Villager = {
 const wizard: Villager = {
   name: "Wizard",
   birthday: "Winter 17",
-  loves: [
-    "Purple Mushroom",
-    "Solar Essence",
-    "Super Cucumber",
-    "Void Essence",
-  ],
+  loves: ["Purple Mushroom", "Solar Essence", "Super Cucumber", "Void Essence"],
   likes: ["All Geode Minerals", "Quartz"],
   neutral: ["All Fruit (except Fruit Tree Fruit & Salmonberry)"],
   dislikes: [
@@ -1024,43 +1010,43 @@ const wizard: Villager = {
 
 @injectable()
 export class Villagers {
-  public villagers: Villager[] = [];
+  public villagersList: Villager[] = [];
   public numberVillagers: number = 0;
 
   constructor() {
-    this.villagers.push(alex);
-    this.villagers.push(elliott);
-    this.villagers.push(harvey);
-    this.villagers.push(sam);
-    this.villagers.push(sebastian);
-    this.villagers.push(shane);
-    this.villagers.push(abigail);
-    this.villagers.push(emily);
-    this.villagers.push(haley);
-    this.villagers.push(leah);
-    this.villagers.push(maru);
-    this.villagers.push(penny);
-    this.villagers.push(caroline);
-    this.villagers.push(clint);
-    this.villagers.push(demetrius);
-    this.villagers.push(dwarf);
-    this.villagers.push(evelyn);
-    this.villagers.push(george);
-    this.villagers.push(gus);
-    this.villagers.push(jas);
-    this.villagers.push(jodi);
-    this.villagers.push(kent);
-    this.villagers.push(krobus);
-    this.villagers.push(lewis);
-    this.villagers.push(linus);
-    this.villagers.push(marnie);
-    this.villagers.push(pam);
-    this.villagers.push(pierre);
-    this.villagers.push(robin);
-    this.villagers.push(sandy);
-    this.villagers.push(vincenct);
-    this.villagers.push(wizard);
-    this.villagers.push(willy);
-    this.numberVillagers = this.villagers.length;
+    this.villagersList.push(alex);
+    this.villagersList.push(elliott);
+    this.villagersList.push(harvey);
+    this.villagersList.push(sam);
+    this.villagersList.push(sebastian);
+    this.villagersList.push(shane);
+    this.villagersList.push(abigail);
+    this.villagersList.push(emily);
+    this.villagersList.push(haley);
+    this.villagersList.push(leah);
+    this.villagersList.push(maru);
+    this.villagersList.push(penny);
+    this.villagersList.push(caroline);
+    this.villagersList.push(clint);
+    this.villagersList.push(demetrius);
+    this.villagersList.push(dwarf);
+    this.villagersList.push(evelyn);
+    this.villagersList.push(george);
+    this.villagersList.push(gus);
+    this.villagersList.push(jas);
+    this.villagersList.push(jodi);
+    this.villagersList.push(kent);
+    this.villagersList.push(krobus);
+    this.villagersList.push(lewis);
+    this.villagersList.push(linus);
+    this.villagersList.push(marnie);
+    this.villagersList.push(pam);
+    this.villagersList.push(pierre);
+    this.villagersList.push(robin);
+    this.villagersList.push(sandy);
+    this.villagersList.push(vincenct);
+    this.villagersList.push(wizard);
+    this.villagersList.push(willy);
+    this.numberVillagers = this.villagersList.length;
   }
 }

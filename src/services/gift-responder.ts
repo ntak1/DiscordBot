@@ -1,18 +1,15 @@
 import { Message } from "discord.js";
 import { inject, injectable } from "inversify";
-import { getIconName as getIconFilename, getIconPath } from "../utils/get-icon-path";
-import { TYPES } from "../di/types";
+import {
+  getIconName as getIconFilename,
+  getIconPath,
+} from "../utils/get-icon-path";
 import { fileExistsSync } from "../utils/file-exists";
 import { Villager, Villagers } from "../villagers";
+import { prepareMessage } from "../utils/message-parser";
+import { TYPES } from "../di/types";
 
 type VillagerKeys = keyof Villager;
-
-export const prepareMessage = (message: string): string[] => {
-  return message
-    ?.toLowerCase()
-    .split(" ")
-    .filter((token) => token !== " ");
-};
 
 const getProperty = (villager: Villager, choice: string) => {
   return villager[<VillagerKeys>choice];
@@ -63,13 +60,14 @@ const replyWithIcons = (
 @injectable()
 export class GiftResponder {
   private villagers: Villagers;
+
   constructor(@inject(TYPES.Villagers) villagers: Villagers) {
     this.villagers = villagers;
   }
 
   handle(message: Message): Promise<Message>[] {
     const tokens = prepareMessage(message.content);
-    const villager = this.villagers.villagers.find(
+    const villager = this.villagers.villagersList.find(
       (_) => _.name.toLowerCase() === tokens[2].toLowerCase()
     );
     if (villager === undefined) {
