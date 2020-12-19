@@ -5,4 +5,5 @@ export const TYPES = {
   PingFinder: Symbol("PingFinder"),
   GiftResponder: Symbol("GiftResponder"),
   Villagers: Symbol("Villagers"),
+  MessageValidator: Symbol("MessageValidator"),
 };

@@ -5,6 +5,7 @@ import { Bot } from "../bot";
 import { Client } from "discord.js";
 import { Villagers } from "../villagers";
 import { GiftResponder } from "../services/gift-responder";
+import { MessageValidator } from "../utils/message-parser";
 
 let container = new Container();
 
@@ -23,4 +24,5 @@ container
   .to(GiftResponder)
   .inSingletonScope();
 container.bind<Villagers>(TYPES.Villagers).to(Villagers).inSingletonScope();
+container.bind<MessageValidator>(TYPES.MessageValidator).to(MessageValidator).inSingletonScope();
 export default container;

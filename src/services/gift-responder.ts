@@ -76,29 +76,64 @@ export class GiftResponder {
     switch (tokens.length) {
       // Return villager information
       case COMMAND.gift_villager:
-        message.reply(JSON.stringify(villager));
+        return giftVillagerCommand(message, villager);
 
       // Return a list of what the villager loves | likes | neutral | dislikes | hates
       case COMMAND.gift_villager_likeness:
-        let villagerPreferences = getProperty(villager, tokens[3]);
-        if (!Array.isArray(villagerPreferences)) {
-          villagerPreferences = [villagerPreferences];
-        }
-        return replyWithIcons(villagerPreferences, message);
+        return giftVillagerLikenessCommand(villager, tokens, message);
 
       // Return whether the villager loves | likes | neutral | dislikes | hates a specific gift
       case COMMAND.gift_villager_likeness_item:
-        const items = getProperty(villager, tokens[3]);
-        if (typeof items === "string" || items == null) {
-          return [message.reply(false)];
-        }
-        items
-          .map((item) => item.toLowerCase())
-          .includes(tokens[4].toLowerCase());
-        return [message.reply(items)];
+        return giftVillagerLikenessItemCommand(villager, tokens, message);
 
       default:
         return [message.reply("Command validation error. ☹️")];
     }
   }
+}
+function giftVillagerLikenessItemCommand(
+  villager: Villager,
+  tokens: string[],
+  message: Message
+) {
+  const items = getProperty(villager, tokens[3]);
+  let functionReturn: Promise<Message>[];
+  if (typeof items === "string" || items == null) {
+    functionReturn = [message.reply(false)];
+  } else {
+    items.map((item) => item.toLowerCase()).includes(tokens[4].toLowerCase());
+    functionReturn = [message.reply(items)];
+  }
+  return functionReturn;
+}
+
+function giftVillagerLikenessCommand(
+  villager: Villager,
+  tokens: string[],
+  message: Message
+) {
+  let villagerPreferences = getProperty(villager, tokens[3]);
+  if (!Array.isArray(villagerPreferences)) {
+    villagerPreferences = [villagerPreferences];
+  }
+  return replyWithIcons(villagerPreferences, message);
+}
+
+function giftVillagerCommand(
+  message: Message,
+  villager: Villager
+): Promise<Message>[] {
+  return [
+    message.reply(
+            `
+            name: ${getProperty(villager, "name")}
+            birthday: ${getProperty(villager, "birthday")}
+            loves: ${getProperty(villager, "loves")}
+            likes: ${getProperty(villager, "likes")}
+            neutral: ${getProperty(villager, "neutral")}
+            dislikes: ${getProperty(villager, "dislikes")}
+            hates: ${getProperty(villager, "hates")}
+            `
+    ),
+  ];
 }
