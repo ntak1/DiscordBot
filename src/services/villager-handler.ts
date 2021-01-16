@@ -4,7 +4,7 @@ import {
   getIconPath,
 } from "../utils/get-icon-path";
 import { fileExistsSync } from "../utils/file-exists";
-import { Villager, Villagers } from "../data/villagers";
+import { Villager, Villagers } from "../villagers";
 import { Handler } from "../types";
 
 type VillagerKeys = keyof Villager;

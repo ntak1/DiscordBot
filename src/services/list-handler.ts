@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { Villagers } from "../data/villagers";
+import { Villagers } from "../villagers";
 import { Handler } from "../types";
 
 const TOKEN = {

@@ -3,7 +3,7 @@ import { Container } from "inversify";
 import { TYPES } from "./types";
 import { Bot } from "../bot";
 import { Client } from "discord.js";
-import { Villagers } from "../data/villagers";
+import { Villagers } from "../villagers";
 import { Responder } from "../services/responder";
 import { MessageValidator } from "../utils/message-parser";
 

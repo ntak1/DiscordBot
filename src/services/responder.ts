@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { inject, injectable } from "inversify";
 
-import { Villagers } from "../data/villagers";
+import { Villagers } from "../villagers";
 import { prepareMessage } from "../utils/message-parser";
 import { TYPES } from "../di/types";
 import { ListHandler } from "./list-handler";
