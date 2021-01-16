@@ -11,15 +11,21 @@ import { TYPES } from "../di/types";
 
 type VillagerKeys = keyof Villager;
 
-const getProperty = (villager: Villager, choice: string) => {
+const getVillagerProperty = (villager: Villager, choice: string) => {
   return villager[<VillagerKeys>choice];
 };
 
 const COMMAND = {
-  gift_villager: 3,
-  gift_villager_likeness: 4,
-  gift_villager_likeness_item: 5,
+  villager: 2,               // $$ <villager>
+  villager_likeness: 3,      // $$ <villager> <likeness>
+  villager_likeness_item: 4, // $$ <villager> <likeness> <gift>
 };
+
+const TOKEN = {
+  villagerName: 1,
+  likeness: 2,
+  item: 3,
+}
 
 export type FileAttachment = {
   files: [
@@ -36,6 +42,7 @@ const replyWithIcons = (
 ): Promise<Message>[] => {
   const reply: Promise<Message>[] = [];
   for (let iconName of iconNames) {
+    
     const filename = getIconFilename(iconName);
     const filepath = getIconPath(iconName);
 
@@ -66,74 +73,91 @@ export class GiftResponder {
   }
 
   handle(message: Message): Promise<Message>[] {
-    const tokens = prepareMessage(message.content);
+    let tokens = prepareMessage(message.content);
     const villager = this.villagers.villagersList.find(
-      (_) => _.name.toLowerCase() === tokens[2].toLowerCase()
+      (_) => _.name.toLowerCase() === tokens[TOKEN.villagerName]
     );
     if (villager === undefined) {
       return [message.reply("Error, could not fullfil request")];
     }
+    if (tokens.length > 4) { // the last tokens are items;
+      const lastItems = tokens.slice(TOKEN.item, tokens.length).reduce((prev, item) => `${prev} ${item}`);
+      tokens = [...tokens.slice(0, TOKEN.likeness + 1), lastItems];
+    }
+    console.log("processed tokens: ", tokens);
     switch (tokens.length) {
       // Return villager information
-      case COMMAND.gift_villager:
-        return giftVillagerCommand(message, villager);
+      case COMMAND.villager:
+        console.debug("Command villager");
+        return villagerCommand(villager, message);
 
       // Return a list of what the villager loves | likes | neutral | dislikes | hates
-      case COMMAND.gift_villager_likeness:
-        return giftVillagerLikenessCommand(villager, tokens, message);
+      case COMMAND.villager_likeness:
+        console.debug("Command villager likeness");
+        return villagerLikenessCommand(villager, tokens, message);
 
       // Return whether the villager loves | likes | neutral | dislikes | hates a specific gift
-      case COMMAND.gift_villager_likeness_item:
-        return giftVillagerLikenessItemCommand(villager, tokens, message);
+      case COMMAND.villager_likeness_item:
+        console.debug("Command villager likeness item");
+        return villagerLikenessItemCommand(villager, tokens, message);
 
       default:
         return [message.reply("Command validation error. ☹️")];
     }
   }
 }
-function giftVillagerLikenessItemCommand(
+
+function villagerLikenessItemCommand(
   villager: Villager,
   tokens: string[],
   message: Message
 ) {
-  const items = getProperty(villager, tokens[3]);
+  let items = getVillagerProperty(villager, tokens[TOKEN.likeness]);
   let functionReturn: Promise<Message>[];
-  if (typeof items === "string" || items == null) {
+  if (items == null) {
     functionReturn = [message.reply(false)];
   } else {
-    items.map((item) => item.toLowerCase()).includes(tokens[4].toLowerCase());
-    functionReturn = [message.reply(items)];
+    if (typeof items === "string") {
+      items = [items];
+    }
+    items = items.map((item) => item.toLocaleLowerCase());
+    let itemCompatible = false;
+    for (let item of items) {
+      if (item === tokens[TOKEN.item]) {
+        itemCompatible = true;
+        break;
+      }
+    }
+    functionReturn = [message.reply(itemCompatible)];
   }
   return functionReturn;
 }
 
-function giftVillagerLikenessCommand(
+function villagerLikenessCommand(
   villager: Villager,
   tokens: string[],
   message: Message
 ) {
-  let villagerPreferences = getProperty(villager, tokens[3]);
+  let villagerPreferences = getVillagerProperty(villager, tokens[TOKEN.likeness]);
   if (!Array.isArray(villagerPreferences)) {
     villagerPreferences = [villagerPreferences];
   }
   return replyWithIcons(villagerPreferences, message);
 }
 
-function giftVillagerCommand(
+function villagerCommand(
+  villager: Villager,
   message: Message,
-  villager: Villager
 ): Promise<Message>[] {
   return [
     message.reply(
-            `
-            name: ${getProperty(villager, "name")}
-            birthday: ${getProperty(villager, "birthday")}
-            loves: ${getProperty(villager, "loves")}
-            likes: ${getProperty(villager, "likes")}
-            neutral: ${getProperty(villager, "neutral")}
-            dislikes: ${getProperty(villager, "dislikes")}
-            hates: ${getProperty(villager, "hates")}
-            `
+          `name: ${getVillagerProperty(villager, "name")}`
+          +`birthday: ${getVillagerProperty(villager, "birthday")}`
+          + `loves: ${getVillagerProperty(villager, "loves")}`
+          + `likes: ${getVillagerProperty(villager, "likes")}`
+          + `neutral: ${getVillagerProperty(villager, "neutral")}`
+          + `dislikes: ${getVillagerProperty(villager, "dislikes")}`
+          + `hates: ${getVillagerProperty(villager, "hates")}`
     ),
   ];
 }

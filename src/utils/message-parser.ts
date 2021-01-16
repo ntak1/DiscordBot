@@ -11,11 +11,6 @@ export const prepareMessage = (message: string): string[] => {
 
 export const enum ValidationStatus {
   NOT_A_COMMAND,
-  INVALID_COMMAND,
-  INVALID_VILLAGER,
-  INVALID_VERB,
-  INVALID_GIFT,
-  INVALID_CHAR_ERROR,
   VALID_COMMAND,
 }
 
@@ -42,23 +37,6 @@ export class MessageValidator {
     if (tokens[0] !== "$$") {
       console.error("NOT_A_COMMAND");
       return ValidationStatus.NOT_A_COMMAND;
-    }
-    // TODO: if we have other features, change create another error type
-    if (tokens[1] !== "gift") {
-      console.error("INVALID_COMMAND");
-      return ValidationStatus.INVALID_COMMAND;
-    }
-    if (!this.isExistingVillager(tokens[2])) {
-      console.error("INVALID_VILLAGERS");
-      return ValidationStatus.INVALID_VILLAGER;
-    }
-    if (tokens.length === 4 && !tokens[3].match("[a-z0-9]")) {
-      console.log("INVALID_CHAR_ERROR");
-      return ValidationStatus.INVALID_CHAR_ERROR;
-    }
-    if (tokens.length === 5 && !tokens[4].match("[a-z0-9]")) {
-      console.log("INVALID_CHAR_ERROR");
-      return ValidationStatus.INVALID_CHAR_ERROR;
     }
     return ValidationStatus.VALID_COMMAND;
   };
