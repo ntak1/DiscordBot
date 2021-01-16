@@ -151,13 +151,13 @@ function villagerCommand(
 ): Promise<Message>[] {
   return [
     message.reply(
-          `name: ${getVillagerProperty(villager, "name")}`
-          +`birthday: ${getVillagerProperty(villager, "birthday")}`
-          + `loves: ${getVillagerProperty(villager, "loves")}`
-          + `likes: ${getVillagerProperty(villager, "likes")}`
-          + `neutral: ${getVillagerProperty(villager, "neutral")}`
-          + `dislikes: ${getVillagerProperty(villager, "dislikes")}`
-          + `hates: ${getVillagerProperty(villager, "hates")}`
+          `name: ${getVillagerProperty(villager, "name")}\n`
+          +`birthday: ${getVillagerProperty(villager, "birthday")}\n`
+          + `loves: ${getVillagerProperty(villager, "loves")}\n`
+          + `likes: ${getVillagerProperty(villager, "likes")}\n`
+          + `neutral: ${getVillagerProperty(villager, "neutral")}\n`
+          + `dislikes: ${getVillagerProperty(villager, "dislikes")}\n`
+          + `hates: ${getVillagerProperty(villager, "hates")}\n`
     ),
   ];
 }
