@@ -1,13 +1,11 @@
 import { Message } from "discord.js";
-import { inject, injectable } from "inversify";
 import {
   getIconName as getIconFilename,
   getIconPath,
 } from "../utils/get-icon-path";
 import { fileExistsSync } from "../utils/file-exists";
-import { Villager, Villagers } from "../villagers";
-import { prepareMessage } from "../utils/message-parser";
-import { TYPES } from "../di/types";
+import { Villager, Villagers } from "../data/villagers";
+import { Handler } from "../types";
 
 type VillagerKeys = keyof Villager;
 
@@ -26,15 +24,6 @@ const TOKEN = {
   likeness: 2,
   item: 3,
 }
-
-export type FileAttachment = {
-  files: [
-    {
-      filepath: string;
-      filename: string;
-    }
-  ];
-};
 
 const replyWithIcons = (
   iconNames: string[],
@@ -63,49 +52,6 @@ const replyWithIcons = (
   }
   return reply;
 };
-
-@injectable()
-export class GiftResponder {
-  private villagers: Villagers;
-
-  constructor(@inject(TYPES.Villagers) villagers: Villagers) {
-    this.villagers = villagers;
-  }
-
-  handle(message: Message): Promise<Message>[] {
-    let tokens = prepareMessage(message.content);
-    const villager = this.villagers.villagersList.find(
-      (_) => _.name.toLowerCase() === tokens[TOKEN.villagerName]
-    );
-    if (villager === undefined) {
-      return [message.reply("Error, could not fullfil request")];
-    }
-    if (tokens.length > 4) { // the last tokens are items;
-      const lastItems = tokens.slice(TOKEN.item, tokens.length).reduce((prev, item) => `${prev} ${item}`);
-      tokens = [...tokens.slice(0, TOKEN.likeness + 1), lastItems];
-    }
-    console.log("processed tokens: ", tokens);
-    switch (tokens.length) {
-      // Return villager information
-      case COMMAND.villager:
-        console.debug("Command villager");
-        return villagerCommand(villager, message);
-
-      // Return a list of what the villager loves | likes | neutral | dislikes | hates
-      case COMMAND.villager_likeness:
-        console.debug("Command villager likeness");
-        return villagerLikenessCommand(villager, tokens, message);
-
-      // Return whether the villager loves | likes | neutral | dislikes | hates a specific gift
-      case COMMAND.villager_likeness_item:
-        console.debug("Command villager likeness item");
-        return villagerLikenessItemCommand(villager, tokens, message);
-
-      default:
-        return [message.reply("Command validation error. ☹️")];
-    }
-  }
-}
 
 function villagerLikenessItemCommand(
   villager: Villager,
@@ -160,4 +106,40 @@ function villagerCommand(
           + `hates: ${getVillagerProperty(villager, "hates")}\n`
     ),
   ];
+}
+
+export class VillagerHandler implements Handler {
+
+  public handle(tokens: string[], message: Message, villagers: Villagers): Promise<Message>[] {
+    const villager = villagers.villagersList.find(
+      (_) => _.name.toLowerCase() === tokens[TOKEN.villagerName]
+    );
+    if (villager === undefined) {
+      return [message.reply("Error, could not fullfil request")];
+    }
+    if (tokens.length > 4) { // the last tokens are items;
+      const lastItems = tokens.slice(TOKEN.item, tokens.length).reduce((prev, item) => `${prev} ${item}`);
+      tokens = [...tokens.slice(0, TOKEN.likeness + 1), lastItems];
+    }
+    console.log("processed tokens: ", tokens);
+    switch (tokens.length) {
+      // Return villager information
+      case COMMAND.villager:
+        console.debug("Command villager");
+        return villagerCommand(villager, message);
+
+      // Return a list of what the villager loves | likes | neutral | dislikes | hates
+      case COMMAND.villager_likeness:
+        console.debug("Command villager likeness");
+        return villagerLikenessCommand(villager, tokens, message);
+
+      // Return whether the villager loves | likes | neutral | dislikes | hates a specific gift
+      case COMMAND.villager_likeness_item:
+        console.debug("Command villager likeness item");
+        return villagerLikenessItemCommand(villager, tokens, message);
+
+      default:
+        return [message.reply("Command validation error. ☹️")];
+    }
+  }
 }

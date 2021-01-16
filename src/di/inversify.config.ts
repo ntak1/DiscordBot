@@ -3,8 +3,8 @@ import { Container } from "inversify";
 import { TYPES } from "./types";
 import { Bot } from "../bot";
 import { Client } from "discord.js";
-import { Villagers } from "../villagers";
-import { GiftResponder } from "../services/gift-responder";
+import { Villagers } from "../data/villagers";
+import { Responder } from "../services/responder";
 import { MessageValidator } from "../utils/message-parser";
 
 let container = new Container();
@@ -20,8 +20,8 @@ if (process.env.TOKEN !== undefined) {
 
 // Business logic
 container
-  .bind<GiftResponder>(TYPES.GiftResponder)
-  .to(GiftResponder)
+  .bind<Responder>(TYPES.GiftResponder)
+  .to(Responder)
   .inSingletonScope();
 container.bind<Villagers>(TYPES.Villagers).to(Villagers).inSingletonScope();
 container.bind<MessageValidator>(TYPES.MessageValidator).to(MessageValidator).inSingletonScope();

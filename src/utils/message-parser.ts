@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "../di/types";
-import { Villagers } from "../villagers";
+import { Villagers } from "../data/villagers";
 
 export const prepareMessage = (message: string): string[] => {
   return message

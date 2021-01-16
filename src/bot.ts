@@ -1,7 +1,7 @@
 import { Client, Message } from "discord.js";
 import { inject, injectable } from "inversify";
 import { TYPES } from "./di/types";
-import { GiftResponder } from "./services/gift-responder";
+import { Responder } from "./services/responder";
 import {
   MessageValidator,
   prepareMessage,
@@ -12,13 +12,13 @@ import {
 export class Bot {
   private client: Client;
   private readonly token: string;
-  private messageResponder: GiftResponder;
+  private messageResponder: Responder;
   private messageValidator: MessageValidator;
 
   constructor(
     @inject(TYPES.Client) client: Client,
     @inject(TYPES.Token) token: string,
-    @inject(TYPES.GiftResponder) messageResponder: GiftResponder,
+    @inject(TYPES.GiftResponder) messageResponder: Responder,
     @inject(TYPES.MessageValidator) messageValidator: MessageValidator
   ) {
     this.client = client;
@@ -48,7 +48,7 @@ export class Bot {
             console.info("Message sent");
           })
           .catch((err) => {
-            console.error("Error in GiftResponder, message not sent", err);
+            console.error("Error in Responder, message not sent", err);
           });
       });
     });
