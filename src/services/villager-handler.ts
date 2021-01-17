@@ -6,11 +6,16 @@ import {
 import { fileExistsSync } from "../utils/file-exists";
 import { Villager, Villagers } from "../villagers";
 import { Handler } from "../types";
+import { prettyPrint } from "../utils/pretty-print";
 
 type VillagerKeys = keyof Villager;
 
 const getVillagerProperty = (villager: Villager, choice: string) => {
-  return villager[<VillagerKeys>choice];
+  const propperties =  villager[<VillagerKeys>choice];
+  if (typeof propperties == "string") {
+    return [propperties];
+  }
+  return propperties;
 };
 
 const COMMAND = {
@@ -63,9 +68,6 @@ function villagerLikenessItemCommand(
   if (items == null) {
     functionReturn = [message.reply(false)];
   } else {
-    if (typeof items === "string") {
-      items = [items];
-    }
     items = items.map((item) => item.toLocaleLowerCase());
     let itemCompatible = false;
     for (let item of items) {
@@ -95,16 +97,17 @@ function villagerCommand(
   villager: Villager,
   message: Message,
 ): Promise<Message>[] {
+  const keys = Object.keys(villager);
+
   return [
-    message.reply(
-          `name: ${getVillagerProperty(villager, "name")}\n`
-          +`birthday: ${getVillagerProperty(villager, "birthday")}\n`
-          + `loves: ${getVillagerProperty(villager, "loves")}\n`
-          + `likes: ${getVillagerProperty(villager, "likes")}\n`
-          + `neutral: ${getVillagerProperty(villager, "neutral")}\n`
-          + `dislikes: ${getVillagerProperty(villager, "dislikes")}\n`
-          + `hates: ${getVillagerProperty(villager, "hates")}\n`
-    ),
+    message.reply(keys.reduce((prev, key) => {
+      const items = getVillagerProperty(villager, key);
+      console.log("key: ", key, " , item: ", items);
+      if (Array.isArray(items) && items.length === 0) {
+        return `${prev}${key}:\n`
+      }
+      return `${prev}* ${key}: ${prettyPrint(items)}\n`
+    }, ""))
   ];
 }
 
