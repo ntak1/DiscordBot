@@ -1,4 +1,4 @@
-# Discord Bot to help in SDV
+# Discord Bot to help in Stardew Valley Gifts
 
 ## Features
 
